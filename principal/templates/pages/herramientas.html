@@ -1,0 +1,83 @@
+{%extends 'index.html'%}
+{%block header%}
+     {%include 'components/header.html'%}
+{%endblock%}
+
+{%block contenido%}
+{% load crispy_forms_tags %}
+<div class="container mt-3" style="width: 80%; font-size: 14px">
+     <h1 style="text-align:center;">HERRAMIENTAS</h1>
+     <form action="" method="POST" enctype="multipart/form-data" autocomplete="off" novalidate>
+         {% csrf_token %}
+         <div class="row">
+             <div class="col-6">{{form.fecha|as_crispy_field}}</div>
+             <div class="col-6">{{form.ordenEmitida|as_crispy_field}}</div> <!-- Cambiar por N° Factura -->
+         </div>
+         <div class="row">
+             <div class="col-6">{{form.referencia|as_crispy_field}}</div>
+             <div class="col-6">{{form.ocupadoenArea|as_crispy_field}}</div>
+         </div>
+         <div class="row">
+             <div class="col-4">{{form.cantidad|as_crispy_field}}</div>
+             <div class="col-4">{{form.nombre|as_crispy_field}}</div> <!-- Cambiar por Nombre-->
+             <div class="col-4">{{form.estado|as_crispy_field}}</div>
+         </div>
+         <div class="row">
+             <div class="col-4">{{form.categoria|as_crispy_field}}</div>
+             <div class="col-4">{{form.marca|as_crispy_field}}</div>
+             <!--<div class="col-4">{{form.imagenH|as_crispy_field}}</div>-->
+         </div>
+         <div class="row justify-content-center">
+             <input type="submit" class="btn btn-primary col-6">
+         </div>
+
+         {% for message in messages %}             
+             {% if message.tags == 'success' %}
+                 <div class="alert alert-success alert-dismissible fade show" role="alert">
+                     <a href="{% url 'principal' %}"></a>
+                 </div>
+             {% endif %}
+         {% endfor %}
+     </form>
+ </div>
+ <hr>
+ <h1 class="m-4" style="text-align:center;">TABLA DE HERRAMIENTAS</h1>
+    <div class="container mt-1">
+        <table  id="tblEquipos" class="table table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Repuesto</th>
+                    <th>Nombre</th>
+                    <th>Estado</th>
+                    <th>Cantidad</th>
+                    <th>Imagen</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for a in herramientas %}
+                <tr>
+                    <td><a href="{% url 'herramienta' id=a.id %}">{{a.nombre}}</a></td>
+                    <td>{{a.nombre}}</td>
+                    <td>{{a.estado}}</td>
+                    <td>{{a.cantidad}}</td>
+                    <td>{{a.imagenH}}</td>
+                    <td>
+                        <button class="btn btn-warning"><i class="bi bi-clipboard2-minus"></i></button>
+                        <a  href="{% url 'eliminar' id=a.id %}" class="btn btn-danger"><i class="bi bi-trash"></i></a>
+                    </td>
+                  </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+  </div>
+
+  {%if equipos%}
+
+   
+  {% endif %}
+{%endblock%}
+
+{%block footer%}
+     {% include 'components/footer.html'%}
+{%endblock%}

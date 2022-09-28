@@ -1,0 +1,32 @@
+*{
+    text-decoration: none !important;
+}
+/* Seccion Principal */
+.faaa{ 
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url(/static/images/principal/principal-quimint.jpg);
+    background-attachment: fixed;
+    background-size: cover;
+    height: 550px;
+    width: 100%;
+}
+.titulo-principal{
+    text-align: center;
+    color: aliceblue;
+    font-size: 40px;
+    padding-top: 150px;
+}
+.principal-modulos{
+    height: 400px;
+    width: 100%;
+}
+.principal-botones{
+    max-width: 80px;
+    height: 50px;
+    background-color: #61CE70;
+    border-radius: 10px;
+    text-align: center;
+    fill: #FFFFFF;
+    color: #FFFFFF;
+    padding-top: 10px;
+}

@@ -1,0 +1,153 @@
+{%extends 'index.html'%}
+
+{%block header%}
+     {%include 'components/header.html'%}
+{%endblock%}
+
+{% load crispy_forms_tags %}
+
+{%block contenido%}
+  <div class="container">
+    <div class="equipo">
+        <h1 style="text-align:center;">HERRAMIENTAS</h1>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Referencia</th>
+                    <th>OrdenEmitida</th>
+                    <th>Fecha</th>
+                    <th>Cantidad</th>
+                    <th>Estado</th>
+                    <th>OcupadoenArea</th>
+                    <th>Marca</th>
+                    <th>Categoria</th>
+                    <!--<th>imagen</th>-->
+                    <th>Salidas</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{herramienta.nombre}}</td>
+                    <td>{{herramienta.referencia}}</td>
+                    <td>{{herramienta.ordenEmitida}}</td>
+                    <td>{{herramienta.fecha}}</td>
+                    <td>{{herramienta.cantidad}}</td>
+                    <td>{{herramienta.estado}}</td>
+                    <td>{{herramienta.ocupadoenArea}}</td>
+                    <td>{{herramienta.marca}}</td>
+                    <td>{{herramienta.categoria}}</td>
+                    <!--<td>{{herramienta.imagenH}}</td>-->
+                    <td>
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#entradas">
+                            Entradas
+                        </button>
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#salidas">
+                            Salidas
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal fade" id="entradas" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Entradas de Equipos</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-4">{{form.ordenEmitida|as_crispy_field}}</div>
+                    <div class="col-4">{{form.valorU|as_crispy_field}}</div>
+                    <div class="col-4">{{form.cantidad|as_crispy_field}}</div>
+                </div>
+                <div class="row">
+                  <div class="col-12">{{form.observaciones|as_crispy_field}}</div>
+                </div>
+                <div class="row justify-content-center">
+                    <input type="submit" class="btn btn-primary col-6">
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="modal fade" id="salidas" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Salida de Equipos</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              
+              <form method="post" enctype="multipart/form-data" autocomplete="off" novalidate>
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-6">{{form.fecha|as_crispy_field}}</div>
+                    <div class="col-6">{{form.nombre|as_crispy_field}}</div>
+                </div>
+                <div class="row">
+                  <div class="col-6">{{form.referencia|as_crispy_field}}</div>
+                  <div class="col-6">{{form.solicitudDeMantenimiento|as_crispy_field}}</div>
+                </div>
+                <div class="row">
+                  <div class="col-6">{{form.enviadoalArea|as_crispy_field}}</div>
+                  <div class="col-6">{{form.cantidad|as_crispy_field}}</div>
+                </div>
+                <div class="row">
+                  <div class="col-12">{{form.observaciones|as_crispy_field}}</div> 
+                </div>
+                <div class="row justify-content-center">
+                    <input type="submit" class="btn btn-primary col-6">
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+          </div>
+        </div>
+    </div>
+    <br>
+    <div class="historico">
+        <h1 style="text-align:center;">HISTORICO</h1>
+        <table id="tblEquipos" class="table table-hover" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Nombre</th>
+                    <th>Referencia</th>
+                    <th>SolicitudDeMantenimiento</th>
+                    <th>EnviadoalArea</th>
+                    <th>Cantidad</th>
+                    <th>Observaciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{herramienta.fecha}}</td>
+                    <td>{{herramienta.nombre|}}</td> 
+                    <td>{{herramienta.referencia}}</td>
+                    <td>{{herramienta.solicitudDeMantenimiento}}</td>
+                    <td>{{herramienta.enviadoalArea}}</td> 
+                    <td>{{herramienta.cantidad}}</td>
+                    <td>{{herramienta.observaciones}}</td>  
+                </tr>
+            </tbody>
+        </table>
+    </div>
+  </div>
+
+{%endblock%}
+
+{%block footer%}
+     {% include 'components/footer.html'%}
+{%endblock%}
